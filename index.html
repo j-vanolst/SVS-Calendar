@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' type='text/css' href='style.css'>
+    <script src='CalendarDay.js'></script>
+    <script src='Calendar.js'></script>
+    <script src='script.js'></script>
+  </head>
+  <body>
+    <h1>Start Date:</h1>
+    <input type='date' id='startDate'></input>
+    <h1>End Date:</h1>
+    <input type='date' id='endDate'></input>
+    <br>
+    <br>
+    <input type='button' id='btnGenerateCSV' value='Generate CSV'></input>
+    <script>
+    document.getElementById('btnGenerateCSV').addEventListener('click', function() {
+      var startDate = new Date(document.getElementById('startDate').value)
+      var endDate = new Date(document.getElementById('endDate').value)
+      var theCalendar = new Calendar()
+      generateCSV(theCalendar, startDate, endDate)
+    })
+    </script>
+  </body>
+</html>
