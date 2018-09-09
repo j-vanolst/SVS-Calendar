@@ -12,15 +12,70 @@
     <h1>End Date:</h1>
     <input type='date' id='endDate'></input>
     <br>
-    <br>
-    <input type='button' id='btnGenerateCSV' value='Generate CSV'></input>
+    <input type='button' id='btnGenerateCalendar' value='Generate Calendar'></input>
+    <div id='eventList'>
+      <input id='inptDate' type='number'></input>
+      <select id='slctMonth'>
+        <option value='January'>January</option>
+        <option value='February'>February</option>
+        <option value='March'>March</option>
+        <option value='April'>April</option>
+        <option value='May'>May</option>
+        <option value='June'>June</option>
+        <option value='July'>July</option>
+        <option value='August'>August</option>
+        <option value='September'>September</option>
+        <option value='October'>October</option>
+        <option value='November'>November</option>
+        <option value='December'>December</option>
+      </select>
+      <select id='slctDay'>
+        <option value='Monday'>Monday</option>
+        <option value='Tuesday'>Tuesday</option>
+        <option value='Wednesday'>Wednesday</option>
+        <option value='Thursday'>Thursday</option>
+        <option value='Friday'>Friday</option>
+        <option value='Saturday'>Saturday</option>
+        <option value='Sunday'>Sunday</option>
+      </select>
+      <select id='slctEvent'>
+        <option value='Waitangi Day'>Waitangi Day</option>
+        <option value='Good Friday'>Good Friday</option>
+        <option value='Easter Day'>Easter Day</option>
+        <option value='Easter Monday'>Easter Monday</option>
+        <option value='ANZAC Day'>ANZAC Day</option>
+        <option value="Queen's Birthday">Queen's Birthday</option>
+        <option value='Labour Day'>Labour Day</option>
+      </select>
+      <input type='button' id='btnAddEvent' value='Add Event'></input>
+    </div>
+    <div id='addedEvents'>
+      <h1>Added Events</h1>
+    </div>
+    <input type='button' id='btnGenerateCSV' value='Download CSV'></input>
     <script>
-    document.getElementById('btnGenerateCSV').addEventListener('click', function() {
-      var startDate = new Date(document.getElementById('startDate').value)
-      var endDate = new Date(document.getElementById('endDate').value)
+    function setup() {
       var theCalendar = new Calendar()
-      generateCSV(theCalendar, startDate, endDate)
-    })
+      document.getElementById('btnGenerateCalendar').addEventListener('click', function() {
+        var startDate = new Date(document.getElementById('startDate').value)
+        var endDate = new Date(document.getElementById('endDate').value)
+        generateCalendar(theCalendar, startDate, endDate)
+      })
+      document.getElementById('btnAddEvent').addEventListener('click', function() {
+        var eventDate = document.getElementById('inptDate').value
+        var eventMonth = document.getElementById('slctMonth').value
+        var eventDay = document.getElementById('slctDay').value
+        var eventName = document.getElementById('slctEvent').value
+        var calendarDay = theCalendar.findCalendarDay(eventMonth, parseInt(eventDate), eventDay)
+        calendarDay.addEvent(eventName)
+        console.log(calendarDay)
+        addAddedEvent(eventDay, eventDate, eventMonth, eventName)
+      })
+      document.getElementById('btnGenerateCSV').addEventListener('click', function() {
+        download('svs.csv', theCalendar.getCSV())
+      })
+    }
+    setup()
     </script>
   </body>
 </html>

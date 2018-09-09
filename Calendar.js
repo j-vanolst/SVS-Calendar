@@ -16,6 +16,19 @@ class Calendar {
     let newCalendarDay = new CalendarDay(newYear, newMonth, newDay, newDate)
     this.allMySundays.push(newCalendarDay)
   }
+  findCalendarDay(month, date, day) {
+    //return this.allMySports.find(aSport => aSport.name === targetName)
+    switch(day) {
+      case 'Saturday':
+        return this.allMySaturdays.find(aCalendarDay => aCalendarDay.month === month & aCalendarDay.date === date)
+        break
+      case 'Sunday':
+        return this.allMySundays.find(aCalendarDay => aCalendarDay.month === month & aCalendarDay.date === date)
+        break
+      default:
+        return this.allMyWeekdays.find(aCalendarDay => aCalendarDay.month === month & aCalendarDay.date === date)
+    }
+  }
   getCSV() {
     let numberWeekdays = this.allMyWeekdays.length
     let numberSaturdays = this.allMySaturdays.length

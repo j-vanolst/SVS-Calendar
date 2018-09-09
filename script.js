@@ -1,4 +1,4 @@
-function generateCSV(theCalendar, startDate, endDate) {
+function generateCalendar(theCalendar, startDate, endDate) {
   //var startDate = new Date('January 1, 2019')
   var currentDate = startDate
   //var endDate = new Date('December 31, 2019')
@@ -6,7 +6,6 @@ function generateCSV(theCalendar, startDate, endDate) {
     addDay(currentDate, theCalendar)
     currentDate.setDate(currentDate.getDate() + 1)
   }
-  download('svs.csv', theCalendar.getCSV())
 }
 function addDay(date, theCalendar) {
   var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -36,4 +35,10 @@ function download(fileName, data) {
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)
+}
+function addAddedEvent(day, date, month, eventName) {
+  let li = document.createElement('li')
+  li.innerText = `${day}, ${date} ${month} - ${eventName}`
+  let div = document.getElementById('addedEvents')
+  div.appendChild(li)
 }
